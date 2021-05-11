@@ -29,6 +29,7 @@ export default class Login extends Component {
                 </div>
 
                 <br />
+        
                 <Link to="/welcome" className="btn btn-primary btn-block">Submit</Link>
                 {/* <button type="submit" className="btn btn-primary btn-block">Submit</button> */}
                 <p className="forgot-password text-right">
