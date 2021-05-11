@@ -169,7 +169,10 @@ function Data() {
       }
 
       return (
-        <div className="Data" >
+        <div className="Data" style={{
+            position: 'relative', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }}>
         <Grid container spacing={1}>
             <Grid item xs={3}></Grid>
             <Grid item xs={6}>
