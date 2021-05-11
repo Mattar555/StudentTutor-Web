@@ -7,7 +7,6 @@ export default class Login extends Component {
             <div className="auth-wrapper">
                 <form>
                     <h3>Sign In</h3>
-
                     <div className="form-group">
                         <label>Email address</label>
                         <input type="email" className="form-control" placeholder="Enter email" />
