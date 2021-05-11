@@ -44,7 +44,7 @@ const tableIcons = {
   };
   
   const api = axios.create({
-    baseURL: `https://reqres.in/api`
+    baseURL: `http://localhost:8080/demo`
   })
   
   
@@ -57,10 +57,12 @@ function Data() {
 
     var columns = [
         {title: "id", field: "id", hidden: true},
-        {title: "Avatar", render: rowData => <Avatar maxInitials={1} size={40} round={true} name={rowData === undefined ? " " : rowData.first_name} />  },
-        {title: "First name", field: "first_name"},
-        {title: "Last name", field: "last_name"},
-        {title: "email", field: "email"}
+        // {title: "Avatar", render: rowData => <Avatar maxInitials={1} size={40} round={true} name={rowData === undefined ? " " : rowData.first_name} />  },
+        {title: "Tutor", field: "tutor"},
+        {title: "Student", field: "student"},
+        {title: "email", field: "email"},
+        {title: "Response", field: "response"},
+        {title: "Sent", field: "sent"}
       ]
       const [data, setData] = useState([]); //table data
     
@@ -69,9 +71,9 @@ function Data() {
       const [errorMessages, setErrorMessages] = useState([])
     
       useEffect(() => { 
-        api.get("/users")
+        api.get("/all")
             .then(res => {               
-                setData(res.data.data)
+                setData(res.data)
              })
              .catch(error=>{
                  console.log("Error")
@@ -81,10 +83,10 @@ function Data() {
       const handleRowUpdate = (newData, oldData, resolve) => {
         //validation
         let errorList = []
-        if(newData.first_name === ""){
+        if(newData.student === ""){
           errorList.push("Please enter first name")
         }
-        if(newData.last_name === ""){
+        if(newData.tutor === ""){
           errorList.push("Please enter last name")
         }
         if(newData.email === "" || validateEmail(newData.email) === false){
@@ -92,7 +94,7 @@ function Data() {
         }
     
         if(errorList.length < 1){
-          api.patch("/users/"+newData.id, newData)
+          api.put("/update/", newData)
           .then(res => {
             const dataUpdate = [...data];
             const index = oldData.tableData.id;
@@ -119,10 +121,10 @@ function Data() {
       const handleRowAdd = (newData, resolve) => {
         //validation
         let errorList = []
-        if(newData.first_name === undefined){
+        if(newData.student === undefined){
           errorList.push("Please enter first name")
         }
-        if(newData.last_name === undefined){
+        if(newData.tutor === undefined){
           errorList.push("Please enter last name")
         }
         if(newData.email === undefined || validateEmail(newData.email) === false){
@@ -130,7 +132,7 @@ function Data() {
         }
     
         if(errorList.length < 1){ //no error
-          api.post("/users", newData)
+          api.post("/add", newData)
           .then(res => {
             let dataToAdd = [...data];
             dataToAdd.push(newData);
@@ -153,7 +155,8 @@ function Data() {
 
       const handleRowDelete = (oldData, resolve) => {
     
-        api.delete("/users/"+oldData.id)
+        console.log(oldData)
+        api.delete("/delete?id="+oldData.id)
           .then(res => {
             const dataDelete = [...data];
             const index = oldData.tableData.id;
