@@ -57,12 +57,12 @@ function Data() {
 
     var columns = [
         {title: "id", field: "id", hidden: true},
-        // {title: "Avatar", render: rowData => <Avatar maxInitials={1} size={40} round={true} name={rowData === undefined ? " " : rowData.first_name} />  },
+        {title: "Avatar", render: rowData => <Avatar maxInitials={1} size={40} round={true} name={rowData === undefined ? " " : rowData.tutor} />  },
         {title: "Tutor", field: "tutor"},
         {title: "Student", field: "student"},
         {title: "email", field: "email"},
         {title: "Response", field: "response"},
-        {title: "Sent", field: "sent"}
+        {title: "Sent", field: "sent", hidden: true}
       ]
       const [data, setData] = useState([]); //table data
     
