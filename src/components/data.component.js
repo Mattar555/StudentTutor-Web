@@ -169,10 +169,7 @@ function Data() {
       }
 
       return (
-        <div className="Data" style={{
-            position: 'absolute', left: '50%', top: '40%',
-            transform: 'translate(-50%, -50%)'
-        }}>
+        <div className="Data" >
         <Grid container spacing={1}>
             <Grid item xs={3}></Grid>
             <Grid item xs={6}>
@@ -186,7 +183,7 @@ function Data() {
               }       
             </div>
               <MaterialTable
-                title="User data from remote source"
+                title="Student tutor pairings"
                 columns={columns}
                 data={data}
                 icons={tableIcons}
