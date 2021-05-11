@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 export default class Login extends Component {
     render() {
         return (
+            <div className="auth-wrapper">
             <form>
                 <h3>Sign In</h3>
 
@@ -36,6 +37,7 @@ export default class Login extends Component {
                     Forgot <a href="#">password?</a>
                 </p>
             </form>
+            </div>
         );
     }
 }

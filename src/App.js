@@ -8,7 +8,8 @@ import SignUp from "./components/signup.component";
 import Data from "./components/data.component";
 
 function App() {
-  return (<Router>
+  return (
+  <Router>
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <div className="container">
@@ -26,17 +27,14 @@ function App() {
         </div>
       </nav>
 
-      <div className="auth-wrapper">
-        <div className="auth-inner">
           <Switch>
             <Route exact path='/' component={Login} />
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/welcome" component={Data} />
           </Switch>
-        </div>
-      </div>
-    </div></Router>
+    </div>
+  </Router>
   );
 }
 
