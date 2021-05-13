@@ -31,7 +31,7 @@ export default function Login() {
 
     const renderAuthButton = () => {
         if (redirect) {
-            return <Link to="/welcome" width="25px" className="btn btn-primary btn-block">Submit</Link>;
+        return <Link to="/welcome" width="25px" className="btn btn-primary btn-block">Submit</Link>;
         } else {
         return <><Button as="input" block type="submit" value="Submit" />{' '}</>
         }
