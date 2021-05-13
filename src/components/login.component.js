@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom"
+import axios from 'axios'
+import Button from 'react-bootstrap/Button';
+
+
+const api = axios.create({
+    baseURL: `http://localhost:8080/demo`
+  })
+  
 
 export default function Login() {
 
@@ -7,34 +15,32 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [redirect, setRedirect] = useState(false);
 
-
-    const validate = async () => {
+    const validate = (resolve) => {
         let credentials = {
             username: email,
             password: password
         }
-        let url = 'http://localhost:8080/demo/validate'
-        try {
-            const response = await fetch(url, {
-                method: 'put',
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify(credentials)
-            });
+        api.put("/validate", credentials).then(res => {
             setRedirect(true);
-            //resolve();
-        } catch (error) {
+            resolve();
+        }).catch(error => {
             console.log(error);
-        }
+            resolve();
+        })
     }
 
-    if (redirect) {
-        return <Redirect to="/welcome"/>
-    }
+    const renderAuthButton = () => {
+        if (redirect) {
+            return <Link to="/welcome" width="25px" className="btn btn-primary btn-block">Submit</Link>;
+        } else {
+        return <><Button as="input" block type="submit" value="Submit" />{' '}</>
+        }
+      }
 
         return (
 
             <div className="auth-wrapper">
-                <form onSubmit>
+                <form onSubmit={new Promise((resolve) => {validate(resolve)})}>
                     <h3>Sign In</h3>
                     <div className="form-group">
                         <label>Email address</label>
@@ -68,9 +74,7 @@ export default function Login() {
                     </div>
 
                     <br />
-            
-                    <Link to="/welcome" className="btn btn-primary btn-block">Submit</Link>
-                    {/* <button type="submit" className="btn btn-primary btn-block">Submit</button> */}
+                    {renderAuthButton()}
                     <p className="forgot-password text-right">
                         Forgot <a href="#">password?</a>
                     </p>
